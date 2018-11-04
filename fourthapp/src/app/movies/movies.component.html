@@ -1,0 +1,65 @@
+<div class="row"> <!--1 row has 12 grid system-->
+    <div class="panel panel-primary">
+        <div class="panel-heading" *ngIf="movies && movies.length">
+            {{title}}
+        </div>
+        <div class="panel-body">
+            <div class="row">
+                <div class="col-md-2" id="div-filter-1">
+                    Filter By:
+                </div>
+                <div class="col-md-4">
+                   <input type="text" [(ngModel)]="filteredText"/>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">     
+                    <h5> Filtered By:{{filteredText}}</h5>
+                </div>
+            </div>
+            <div class="table-responsive">
+                <table class="table table-striped table-bordered">
+                    <thead>
+                        <tr>
+                            <th>
+                                <button type="button" class="btn btn-success"
+                                (click)="toggleImage()">
+                                    Show Images
+                                </button>
+                            </th>
+                            <th>Name</th>
+                            <th>Type</th>
+                            <th>Language</th>
+                            <th>Rating</th>
+                            <th>Release Date</th>
+                            <th>Income</th>
+                            <th>Ticket Price</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    <!-- below is the for loop for displaying list of movies(declared in movies.component.ts) -->
+                    <tr *ngFor="let mov of movies | filterMoviesPipe:filteredText">
+                            <td>
+                                <img [src]="mov.imageUrl" 
+                                [style.width.px]="imageWidth"
+                                *ngIf="showImage"/>
+                            </td>
+                            <td>{{mov.name | myCasePipe: 'upper'}}</td>
+                            <td>{{mov.type | myCasePipe: 'title'}}</td>
+                            <td>{{mov.language}}</td>
+                           <!-- <td>{{mov.rate}}</td> -->
+                            <td><app-star [rating]="mov.rate"
+                                (ratingClicked)="onDataReceive($event)"></app-star></td> 
+                            <td>{{mov.releaseDate}}</td>
+                            <td>{{mov.income | currency:'USD'}}</td>
+                            <td>{{mov.tktPrice |currency:'USD'}}</td>
+                            
+                        </tr>                                    
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- discountPipe: '5' | mov.tktPrice | -->

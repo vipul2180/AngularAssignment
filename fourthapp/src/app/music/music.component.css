@@ -1,0 +1,17 @@
+#divName{
+    text-align: center;
+    font-weight: bold;
+    font-family: cursive;
+    font-size: 2em;
+    color: green
+}
+
+#albumTitle{
+    text-align: center;
+    font-weight: bold;
+    color: royalblue
+}
+
+#divBio,#year,#price{
+    text-align: center;
+}

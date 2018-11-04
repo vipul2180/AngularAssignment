@@ -1,0 +1,14 @@
+<div class="panel panel-success">
+    <div class="panel-heading">
+        Detail Page
+    </div>
+    <div class="panel-body">
+        Detail Content Here for {{id}}
+        
+        <h2>{{details[0].name}}</h2>
+        
+        <img [src]="details[0].imageUrl" />
+        <h3> {{details[0].description}}</h3>
+    </div>
+    <button type="button" (click)="onBack()" class="btn btn-danger"><<Back</button>
+</div>

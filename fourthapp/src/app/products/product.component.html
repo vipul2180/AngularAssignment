@@ -1,0 +1,66 @@
+    <div class="panel panel-primary">
+                <div class="panel-heading">
+                    {{title}}
+                </div>
+                <div class="panel-body" *ngIf="products && products.length">
+                    <div class="row">
+                        <div class="col-md-2">
+                            Filter By:
+                        </div>
+                        <div class="col-md-4">
+                            <input type="text" [(ngModel)]="filterText"/>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                           <!-- <h3 style="color:blueviolet">Filtered By:{{filterText}}</h3> -->
+                           <h3 style="color:blueviolet">Number of Products Filtered : {{(products | filterProd:filterText)?.length}}</h3>
+                        </div>
+                    </div>
+                    <div class="table-responsive" >
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th><button type="button" class="btn btn-success"
+                                        (click)="toggleImage()">
+                                        Show Images
+                                    </button></th>
+                                    <th>Name</th>
+                                    <th>Code</th>
+                                    <th>Date</th>
+                                    <th>Price</th>
+                                    <th>StarRating</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {{showImage}}
+                                <tr *ngFor="let prod of products | filterProd:filterText">
+                                    <td>
+                                        <img [src]="prod.imageUrl"
+                                        [style.width.px]="imageWidth"
+                                        *ngIf="showImage" />
+                                    </td>
+                                    <td><a [routerLink]="['/productDetails', prod.productId]" 
+                                         >
+                                            {{prod.productName | mypipe:'upper'}}
+                                            
+                                        </a>
+                                    </td>
+                                    <td>{{prod.productCode | mypipe:'lower'}}</td>
+                                    <td>{{prod.releaseDate}}</td>
+                                    <td [ngStyle]="{'background-color':prod.price<30 ? 'green':'red'}">{{prod.price  | currency: 'INR'}}</td>
+                                    <td><app-star [rating]="prod.starRating"
+                                        (ratingClicked)="onDataRecieve($event)"></app-star></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                   
+                </div>
+    </div>
+
+    <!--
+          [queryParams] = "{name: prod.productName,
+                            desc: prod.description,
+                            img: prod.imageUrl}"
+    -->

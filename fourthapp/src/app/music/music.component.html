@@ -1,0 +1,36 @@
+
+<div class="row" *ngFor="let musiclist of music">
+    <div class="col-md-6" *ngFor="let musiclistss of musiclist.artists; let i = index">        
+        <div class="thumbnail">
+            <img src="../../assets/images/covers/{{musiclistss.cover}}.jpg" class="img-thumbnail" alt="{{musiclistss.name}}" style="width: 50%"/>
+                <div id="divName"> 
+                    {{musiclistss.name}}            
+                 </div>
+                 <br/>
+                <div id="divbio"> 
+                    {{musiclistss.bio}}            
+                </div>
+          
+            <button type="button" class="btn btn-success" (click)="selectedIndex=i" (click)= "toggleAlbums()">
+                Show Albums
+            </button>              
+            <br/><br/>
+            <div class="row" *ngIf="selectedIndex===i && showAlbums">         
+                <div class="col-md-12">
+                    <div class="thumbnail" *ngFor="let musiclistsss of musiclistss.albums">
+                        <img src="../../assets/images/albums/{{musiclistsss.cover}}.jpg" class="img-thumbnail" alt="{{musiclistss.cover}}" style="width: 25%"/>  
+                        <div id="albumTitle">
+                           {{musiclistsss.title}} 
+                        </div>
+                        <div id="year">
+                            <span><strong>Year: </strong> </span>{{musiclistsss.year}} 
+                        </div>
+                        <div id="price">
+                            <span><strong>Price: </strong></span>{{musiclistsss.price | currency:'USD'}}
+                        </div>              
+                     </div>
+                </div>       
+            </div>
+        </div>        
+    </div>
+</div>
